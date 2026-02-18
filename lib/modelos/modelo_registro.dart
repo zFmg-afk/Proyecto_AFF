@@ -1,3 +1,4 @@
+//Modelo de registros
 enum TipoCategoria { comida, entretenimiento, viajes, trabajo }
 
 class Gasto {

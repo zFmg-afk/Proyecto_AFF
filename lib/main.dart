@@ -1,3 +1,4 @@
+//MAIN
 import 'package:proyecto/grafica.dart';
 import 'package:flutter/material.dart';
 

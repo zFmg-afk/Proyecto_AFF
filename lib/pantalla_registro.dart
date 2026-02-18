@@ -1,3 +1,4 @@
+//Pantalla de registros
 import 'package:flutter/material.dart';
 import 'package:proyecto/modelos/modelo_registro.dart';
 
