@@ -110,12 +110,12 @@ class _GraficaState extends State<Grafica> {
             width: 25,
             height: alturaCalculada + 5,
             decoration: BoxDecoration(
-              color: Colors.deepPurple,
+              color: Color(0xFF14B8A6),
               borderRadius: BorderRadius.circular(5),
               boxShadow: [
                 if (totalesPorCategoria[cat]! > 0)
                   BoxShadow(
-                    color: Colors.black,
+                    color: Colors.black.withOpacity(0.5),
                     blurRadius: 2,
                     offset: Offset(1, 1),
                   ),
@@ -130,16 +130,34 @@ class _GraficaState extends State<Grafica> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF2F2F2),
       appBar: AppBar(
-        title: const Text("Control de Gastos"),
+        title: const Text(
+          "Control de Gastos",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        scrolledUnderElevation: 0, // evita cambio al hacer scroll
+        surfaceTintColor: Colors.transparent, // quita tinte gris Material 3
+        shadowColor: Colors.transparent,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            color: Colors.black,
-            onPressed: abrirFormulario,
+          Container(
+            width: 30,
+            height: 30,
+            margin: const EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+              color: const Color(0xFF14B8A6),
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(8), // bordes redondeados
+            ),
+            child: IconButton(
+              padding: EdgeInsets.zero, //  quita espacio interno
+              constraints: const BoxConstraints(),
+              icon: const Icon(Icons.add, color: Colors.white),
+              onPressed: abrirFormulario,
+            ),
           ),
         ],
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.white,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -159,8 +177,12 @@ class _GraficaState extends State<Grafica> {
                     10,
                   ), // Espacio interno para que las barras no toquen el borde
                   decoration: BoxDecoration(
-                    color: Colors.purple[50],
+                    color: Color(0xFF14B8A6).withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Color(0xFF14B8A6).withValues(alpha: 0.15),
+                      width: 1,
+                    ),
                   ),
                   child: Column(
                     children: [
@@ -184,7 +206,7 @@ class _GraficaState extends State<Grafica> {
                   ),
                 ),
               ),
-
+              const SizedBox(height: 20), // Espacio entre gráfica y lista
               // ELEMENTO 2: LISTA DE GASTOS (CON DESPLAZAMIENTO)
               Expanded(
                 child: listaGastos.isEmpty
@@ -233,7 +255,7 @@ class _GraficaState extends State<Grafica> {
                                     visualDensity: VisualDensity.compact,
                                     icon: const Icon(
                                       Icons.create_outlined,
-                                      color: Colors.blue,
+                                      color: Color(0xFF14B8A6),
                                     ),
                                     onPressed: () => editarGasto(index),
                                   ),

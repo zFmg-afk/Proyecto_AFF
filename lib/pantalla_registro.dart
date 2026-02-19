@@ -62,6 +62,7 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF2F2F2),
       appBar: AppBar(
         title: Text(widget.gasto == null ? "Nuevo Gasto" : "Editar Gasto"),
       ),
@@ -140,7 +141,9 @@ class _AddScreenState extends State<AddScreen> {
 
                           Icon(
                             Icons.calendar_month_sharp,
-                            color: fecha == null ? Colors.black : Colors.black,
+                            color: fecha == null
+                                ? Color(0xFF14B8A6)
+                                : Color(0xFF14B8A6),
                             size: 30,
                           ),
                         ],
@@ -183,6 +186,7 @@ class _AddScreenState extends State<AddScreen> {
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.black,
                             elevation: 0,
                           ),
                           onPressed: () => Navigator.pop(context),
@@ -191,7 +195,8 @@ class _AddScreenState extends State<AddScreen> {
 
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            backgroundColor: Color(0xFF14B8A6),
+                            foregroundColor: Colors.white,
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
