@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:proyecto/modelos/modelo_registro.dart';
 
 class AddScreen extends StatefulWidget {
-  const AddScreen({super.key});
+  final Gasto? gasto;
+
+  const AddScreen({super.key, this.gasto});
 
   @override
   State<AddScreen> createState() => _AddScreenState();
@@ -16,6 +18,18 @@ class _AddScreenState extends State<AddScreen> {
   double monto = 0;
   DateTime? fecha;
   TipoCategoria categoria = TipoCategoria.comida;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.gasto != null) {
+      titulo = widget.gasto!.titulo;
+      monto = widget.gasto!.monto;
+      fecha = widget.gasto!.fecha;
+      categoria = widget.gasto!.categoria;
+    }
+  }
 
   Future<void> seleccionarFecha() async {
     final picked = await showDatePicker(
@@ -48,6 +62,10 @@ class _AddScreenState extends State<AddScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.gasto == null ? "Nuevo Gasto" : "Editar Gasto"),
+      ),
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -56,6 +74,7 @@ class _AddScreenState extends State<AddScreen> {
             children: [
               // TITULO
               TextFormField(
+                initialValue: titulo,
                 maxLength: 30,
                 decoration: const InputDecoration(
                   labelText: "Título",
@@ -74,6 +93,7 @@ class _AddScreenState extends State<AddScreen> {
                     flex: 1,
 
                     child: TextFormField(
+                      initialValue: monto == 0 ? "" : monto.toString(),
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         labelText: "Monto",
@@ -178,16 +198,17 @@ class _AddScreenState extends State<AddScreen> {
                                 fecha != null) {
                               _formKey.currentState!.save();
 
-                              final gasto = Gasto(
+                              final gastoNuevo = Gasto(
                                 titulo: titulo,
                                 monto: monto,
                                 fecha: fecha!,
                                 categoria: categoria,
                               );
 
-                              Navigator.pop(context, gasto);
+                              Navigator.pop(context, gastoNuevo);
                             }
                           },
+
                           child: const Text("Guardar"),
                         ),
                       ],
